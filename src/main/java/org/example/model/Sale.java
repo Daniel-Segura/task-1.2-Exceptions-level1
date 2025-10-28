@@ -4,29 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sale {
-    private final List<Product> ShoppingList;
-    private double totalPrice;
+    private final List<Product> shoppingList;
+    public double totalPrice;
 
     public Sale() {
-        ShoppingList = new ArrayList<>();
-        totalPrice = 0.0;
-    }
-
-    public void calculateTotal() throws EmptySaleException {
-        if (ShoppingList.isEmpty()) {
-            throw new EmptySaleException("To make a sale you must first add products");
-        }
-        double totalPrice = 0.0;
-        for (Product p : ShoppingList) {
-            totalPrice += p.getPrice();
-            System.out.println("The total price is: " + totalPrice + "$");
-
-        }
-
+        this.shoppingList = new ArrayList<>();
+        this.totalPrice = 0.0;
     }
 
     public List<Product> getShoppingList() {
-        return ShoppingList;
+        return List.copyOf(shoppingList);
     }
 
+    public void addProduct(Product p){
+        this.shoppingList.add(p);
+    }
+
+    public void calculateTotal() throws EmptySaleException {
+        if (shoppingList.isEmpty()) {
+            throw new EmptySaleException("To make a sale you must first add products");
+        }
+        this.totalPrice = 0.0;
+        for (Product p : shoppingList) {
+            this.totalPrice += p.getPrice();
+        }
+        System.out.println("The total price is: " + totalPrice + "$");
+    }
+
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "ShoppingList=" + shoppingList +
+                ", totalPrice=" + totalPrice +
+                "$"+ "}";
+    }
 }
